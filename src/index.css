@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
 
 *,
 *::before,
@@ -9,19 +9,19 @@
 }
 
 :root {
-  --theme-clr: ;
-  --bg-clr: #0d1116;
-  --bg-2-clr: #161b22;
-  --txt-clr: #58a6ff;
-  --primary-clr: #15223a;
-  --secondary-clr: #c9d1d9;
-  --border-clr: #21262d;
+  --theme-clr: #12002b;
+  --bg-clr: #090014;
+  --bg-2-clr: #12002b;
+  --txt-clr: #00ffff;
+  --primary-clr: #ff0055;
+  --secondary-clr: #b900ff;
+  --border-clr: #ff0055;
 }
 
 body {
-  font-family: 'Sora', sans-serif;
+  font-family: 'Orbitron', sans-serif;
   background-color: var(--bg-clr);
-  color: var(--secondary-clr);
+  color: var(--txt-clr);
 }
 
 a {
@@ -65,10 +65,13 @@ a {
   display: flex;
   justify-content: center;
   width: 100%;
+  padding-top: 2rem;
 }
 
 #canvas {
   width: 80%;
   background-color: var(--bg-2-clr);
-  border-radius: 4px;
+  border-radius: 8px;
+  border: 2px solid var(--border-clr);
+  box-shadow: 0 0 20px var(--border-clr), inset 0 0 20px var(--theme-clr);
 }

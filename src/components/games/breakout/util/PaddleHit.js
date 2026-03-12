@@ -1,4 +1,4 @@
-export default function PaddleHit(ballObj, paddleProps) {
+export default function PaddleHit(ballObj, paddleProps, effectsManager) {
     if (
         ballObj.x < paddleProps.x + paddleProps.width &&
         ballObj.x > paddleProps.x &&
@@ -16,5 +16,16 @@ export default function PaddleHit(ballObj, paddleProps) {
 
         ballObj.dx = ballObj.speed * Math.sin(angle);
         ballObj.dy = -ballObj.speed * Math.cos(angle);
+
+        if (effectsManager) {
+            effectsManager.createExplosion(ballObj.x, ballObj.y, "#ff9900", 5);
+            effectsManager.triggerShake(2);
+            // Squish effect: store original height if not exists, temporarily change height
+            if (!paddleProps.originalHeight) paddleProps.originalHeight = paddleProps.height;
+            paddleProps.height = paddleProps.originalHeight * 0.5;
+            setTimeout(() => {
+                paddleProps.height = paddleProps.originalHeight;
+            }, 100);
+        }
     }
 }

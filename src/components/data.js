@@ -12,7 +12,7 @@ export default {
         y: 50,
         height: 20,
         density: 2,
-        colors: ["red", "lightblue"],
+        colors: ["#b900ff", "#ff0055"],
     },
     player: {
         name: "Player",
@@ -24,6 +24,6 @@ export default {
         height: 20,
         width: 100,
         x: 100,
-        color: "orange",
+        color: "#ff0055", // Magenta
     },
 };

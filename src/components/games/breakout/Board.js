@@ -9,9 +9,11 @@ import PaddleHit from "./util/PaddleHit";
 import PlayerStats from "./PlayerStats";
 import AllBroken from "./util/AllBroke";
 import ResetBall from "./util/ResetBall";
+import EffectsManager from "./util/EffectsManager";
 
 let bricks = [];
 let { ballObj, paddleProps, brickObj, player } = data;
+const effectsManager = new EffectsManager();
 
 export default function Board() {
   const canvasRef = useRef(null);
@@ -30,6 +32,12 @@ export default function Board() {
       }
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const shakeOffset = effectsManager.applyShake(ctx);
+      
+      // Dynamic Background
+      ctx.fillStyle = "rgba(9, 0, 20, 0.2)"; 
+      ctx.fillRect(-20, -20, canvas.width + 40, canvas.height + 40);
+
       PlayerStats(ctx, player, canvas);
 
       // Display Bricks
@@ -38,7 +46,7 @@ export default function Board() {
       });
 
       // Handle Ball Movement
-      BallMovement(ctx, ballObj);
+      BallMovement(ctx, ballObj, effectsManager);
 
       // Check all broken
       AllBroken(bricks, player, canvas, ballObj);
@@ -53,7 +61,7 @@ export default function Board() {
         bricks.length = 0;
       }
       // Ball and Wall Collision
-      WallCollision(ballObj, canvas, player, paddleProps);
+      WallCollision(ballObj, canvas, player, paddleProps, effectsManager);
 
       // Brick Collision
       let brickCollision;
@@ -71,12 +79,24 @@ export default function Board() {
             bricks[i].broke = true;
           }
           player.score += 10;
+          
+          // Trigger Effects
+          effectsManager.createExplosion(
+            bricks[i].x + bricks[i].width / 2, 
+            bricks[i].y + bricks[i].height / 2, 
+            bricks[i].colors[1], 
+            20
+          );
+          effectsManager.triggerShake(5);
         }
       }
       Paddle(ctx, canvas, paddleProps);
 
       // Paddle + Ball Collision
-      PaddleHit(ballObj, paddleProps);
+      PaddleHit(ballObj, paddleProps, effectsManager);
+
+      effectsManager.updateAndDraw(ctx);
+      effectsManager.restoreShake(ctx, shakeOffset.dx, shakeOffset.dy);
 
       requestAnimationFrame(render);
     };

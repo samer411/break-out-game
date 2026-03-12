@@ -9,15 +9,22 @@ export default (ctx, canvas, paddleProps) => {
         }
         move() {
             ctx.beginPath();
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.fillStyle = this.broke ? "white" : this.colors[1];
-            ctx.strokeStyle = this.broke ? "white" : "blue";
-            ctx.lineWidth = 1;
-            ctx.fillStyle = this.broke ? "white" : this.colors[1];
-            ctx.shadowBlur = 0;
-            ctx.shadowColor = "blue";
-            ctx.strokeRect(this.x, this.y, this.width, this.height);
+            
+            // Add Glow
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = paddleProps.color;
+            
+            ctx.fillStyle = paddleProps.color;
+            ctx.roundRect ? ctx.roundRect(this.x, this.y, this.width, this.height, 10) : ctx.rect(this.x, this.y, this.width, this.height);
             ctx.fill();
+            
+            // Inner core
+            ctx.strokeStyle = "rgba(255, 255, 255, 0.5)";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Reset Glow
+            ctx.shadowBlur = 0;
         }
     }
 

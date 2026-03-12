@@ -40,15 +40,27 @@ class SingleBrick {
     }
     draw(ctx) {
         ctx.beginPath();
-        ctx.rect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = this.broke ? "rgba(19, 73, 89, 0)" : this.colors[1];
+        let color = this.colors[Math.floor((this.x % 100) / 50) % this.colors.length] || this.colors[1];
+        if(this.colors.length === 2 && this.y % 2 !== 0) {
+           color = this.colors[0]; // just some pattern logic
+        } else {
+           color = this.colors[1];
+        }
 
-        ctx.lineWidth = 5;
-        ctx.strokeStyle = this.broke ? "rgba(19, 73, 89, 0)" : "transparent";
-        // ctx.globalCompositeOperation = "destination-atop";
-        // ctx.shadowBlur = 0;
-        // ctx.shadowColor = "blue";
+        ctx.fillStyle = this.broke ? "transparent" : color;
+        
+        if (!this.broke) {
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = color;
+        }
+
+        ctx.roundRect ? ctx.roundRect(this.x, this.y, this.width, this.height, 5) : ctx.rect(this.x, this.y, this.width, this.height);
+        
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = this.broke ? "transparent" : "rgba(255, 255, 255, 0.5)";
         ctx.fill();
-        ctx.strokeRect(this.x, this.y, this.width, this.height);
+        ctx.stroke();
+        
+        ctx.shadowBlur = 0;
     }
 }

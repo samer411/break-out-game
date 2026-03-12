@@ -3,7 +3,7 @@ export default function WallCollision(
     canvas,
     player,
     paddleProps,
-    setLives
+    effectsManager
 ) {
     if (ballObj.y + ballObj.rad > canvas.height) {
         player.lives--;
@@ -11,6 +11,7 @@ export default function WallCollision(
         ballObj.y = paddleProps.y - 30;
         ballObj.dx = 6 * (Math.random() * 2 - 1);
         ballObj.dy = -6;
+        if (effectsManager) effectsManager.triggerShake(15);
     }
     if (ballObj.y - ballObj.rad < 0) {
         ballObj.dy *= -1;
