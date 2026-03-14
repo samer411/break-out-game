@@ -1,4 +1,4 @@
-export default {
+const gameData = {
     ballObj: {
         x: 20,
         y: 200,
