@@ -27,4 +27,5 @@ const gameData = {
         color: "#ff0055", // Magenta
     },
 };
-export default gameData;
+
+export default gameData;

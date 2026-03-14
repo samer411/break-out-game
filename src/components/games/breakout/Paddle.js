@@ -1,4 +1,4 @@
-export default (ctx, canvas, paddleProps) => {
+const Paddle = (ctx, canvas, paddleProps) => {
     class Paddle {
         constructor(x) {
             this.x = x;
@@ -36,3 +36,5 @@ export default (ctx, canvas, paddleProps) => {
         paddleProps.x = canvas.width - paddleProps.width;
     }
 };
+
+export default Paddle;
