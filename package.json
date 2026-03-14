@@ -1,6 +1,5 @@
 {
   "name": "break-out-game",
-  "homepage": "https://ismailcankaratas.github.io/break-out-game",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
